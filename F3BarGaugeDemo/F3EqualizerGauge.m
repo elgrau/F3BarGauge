@@ -39,16 +39,27 @@
     [self runOnAllGauges:^(F3BarGauge *barGauge) {
         barGauge.innerBorderColor = anInnerBorderColor;
     }];
-    _innerBorderColor = anInnerBorderColor;
+    [_innerBorderColor release];
+    _innerBorderColor = [anInnerBorderColor retain];
 }
 
+- (void) setOuterBorderColor:(UIColor *)outerBorderColor {
+    [self runOnAllGauges:^(F3BarGauge *barGauge) {
+        barGauge.outerBorderColor = outerBorderColor;
+    }];
+    [_outerBorderColor release];
+    
+    _outerBorderColor   = [outerBorderColor retain];
+
+}
 
 - (void)setBackgroundColor:(UIColor *)aBackgroundColor
 {
     [self runOnAllGauges:^(F3BarGauge *barGauge) {
         barGauge.backgroundColor = aBackgroundColor;
     }];
-    _backgroundColor = aBackgroundColor;
+    [_backgroundColor release];
+    _backgroundColor = [aBackgroundColor retain];
 }
 
 
@@ -57,7 +68,8 @@
     [self runOnAllGauges:^(F3BarGauge *barGauge) {
         barGauge.normalBarColor = aNormalBarColor;
     }];
-    _normalBarColor = aNormalBarColor;
+    [_normalBarColor release];
+    _normalBarColor = [aNormalBarColor retain];
 }
 
 
@@ -66,14 +78,16 @@
     [self runOnAllGauges:^(F3BarGauge *barGauge) {
         barGauge.dangerBarColor = aDangerBarColor;
     }];
-    _dangerBarColor = aDangerBarColor;
+    [_dangerBarColor release];
+    _dangerBarColor = [aDangerBarColor retain];
 }
 
 -(void) setWarningBarColor:(UIColor *)warningBarColor {
     [self runOnAllGauges:^(F3BarGauge *barGauge) {
         barGauge.warningBarColor = warningBarColor;
     }];
-    _warningBarColor = warningBarColor;
+    [_warningBarColor release];
+    _warningBarColor = [warningBarColor retain];
 }
 
 
@@ -82,6 +96,7 @@
     [self runOnAllGauges:^(F3BarGauge *barGauge) {
         barGauge.numBars = aNumBars;
     }];
+    
     _numBars = aNumBars;
 }
 
@@ -124,8 +139,8 @@
     [barGauges enumerateObjectsUsingBlock:^(F3BarGauge *gauge, NSUInteger idx, BOOL*stop) {
         gauge.minLimit = 0.0;
         gauge.maxLimit = segmentWidth;
-        float currentMin = idx*segmentWidth;
-        float currentMax = (idx+1)*segmentWidth;
+        float currentMin = _minLimit+idx*segmentWidth;
+        float currentMax = _minLimit+(idx+1)*segmentWidth;
         BOOL currentGauge = NO;
         if (_value<currentMax&&_value>currentMin) {
              gauge.value = [self randomFloatBetween:gauge.minLimit and:gauge.maxLimit];
@@ -218,14 +233,15 @@
 
 - (void)dealloc
 {
+    [super dealloc];
+    [barGauges release];
+
     [_outerBorderColor release];
     [_backgroundColor release];
     [_innerBorderColor release];
     [_dangerBarColor release];
     [_warningBarColor release];
     [_normalBarColor release];
-    [barGauges release];
-    [super dealloc];
 }
 
 @end

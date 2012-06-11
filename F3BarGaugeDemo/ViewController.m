@@ -70,6 +70,8 @@
     equalizer.backgroundColor = [UIColor clearColor];
     equalizer.outerBorderColor = [UIColor clearColor];
     equalizer.innerBorderColor = [UIColor clearColor];
+    equalizer.maxLimit = 0;
+    equalizer.minLimit = -40;
 
 
 }
@@ -122,7 +124,7 @@
   peakHoldBar.value = valueSlider.value;
   customThresholdBar.value = valueSlider.value;
   customRangeBar.value = valueSlider.value;
-  equalizer.value = valueSlider.value*equalizer.maxLimit;
+  equalizer.value = (valueSlider.value*(equalizer.maxLimit-equalizer.minLimit))+equalizer.minLimit;
 }
 
 - (IBAction)didReset:(id)sender {
