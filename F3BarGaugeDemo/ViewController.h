@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "F3BarGauge.h"
+#import "F3EqualizerGauge.h"
 
 @interface ViewController : UIViewController
 @property (retain, nonatomic) IBOutlet F3BarGauge *horizontalBar;
@@ -19,6 +20,7 @@
 @property (retain, nonatomic) IBOutlet F3BarGauge *customRangeBar;
 @property (retain, nonatomic) IBOutlet UISlider *valueSlider;
 @property (retain, nonatomic) IBOutlet UILabel *valueLabel;
+@property (retain, nonatomic) IBOutlet F3EqualizerGauge *equalizer;
 
 - (IBAction)didChangeValue:(id)sender;
 - (IBAction)didReset:(id)sender;

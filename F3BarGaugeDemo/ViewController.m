@@ -18,6 +18,7 @@
 @synthesize customRangeBar;
 @synthesize valueSlider;
 @synthesize valueLabel;
+@synthesize equalizer;
 
 - (void)didReceiveMemoryWarning
 {
@@ -58,6 +59,19 @@
   lcdBar.backgroundColor = [UIColor clearColor];
   lcdBar.outerBorderColor = [UIColor clearColor];
   lcdBar.innerBorderColor = [UIColor clearColor];
+
+    equalizer.numBars = 4;
+    equalizer.numGauges = 4;
+    equalizer.litEffect = NO;
+    UIColor *clrEq = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+    equalizer.normalBarColor = clrEq;
+    equalizer.warningBarColor = clrEq;
+    equalizer.dangerBarColor = clrEq;
+    equalizer.backgroundColor = [UIColor clearColor];
+    equalizer.outerBorderColor = [UIColor clearColor];
+    equalizer.innerBorderColor = [UIColor clearColor];
+
+
 }
 
 - (void)viewDidUnload
@@ -108,7 +122,7 @@
   peakHoldBar.value = valueSlider.value;
   customThresholdBar.value = valueSlider.value;
   customRangeBar.value = valueSlider.value;
-
+  equalizer.value = valueSlider.value*equalizer.maxLimit;
 }
 
 - (IBAction)didReset:(id)sender {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57B3334F1582997F0074AFA1 /* F3EqualizerGauge.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B3334E1582997F0074AFA1 /* F3EqualizerGauge.m */; };
 		C68DA36E1497B71B00437005 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C68DA36D1497B71B00437005 /* UIKit.framework */; };
 		C68DA3701497B71B00437005 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C68DA36F1497B71B00437005 /* Foundation.framework */; };
 		C68DA3721497B71B00437005 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C68DA3711497B71B00437005 /* CoreGraphics.framework */; };
@@ -19,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		57B3334D1582997F0074AFA1 /* F3EqualizerGauge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = F3EqualizerGauge.h; sourceTree = "<group>"; };
+		57B3334E1582997F0074AFA1 /* F3EqualizerGauge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = F3EqualizerGauge.m; sourceTree = "<group>"; };
 		C68DA3691497B71B00437005 /* F3BarGaugeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = F3BarGaugeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C68DA36D1497B71B00437005 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C68DA36F1497B71B00437005 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -107,6 +110,8 @@
 			children = (
 				C68DA38F1497B79000437005 /* F3BarGauge.h */,
 				C68DA3901497B79000437005 /* F3BarGauge.m */,
+				57B3334D1582997F0074AFA1 /* F3EqualizerGauge.h */,
+				57B3334E1582997F0074AFA1 /* F3EqualizerGauge.m */,
 			);
 			name = BarGauge;
 			path = F3BarGaugeDemo;
@@ -178,6 +183,7 @@
 				C68DA37E1497B71B00437005 /* AppDelegate.m in Sources */,
 				C68DA3811497B71B00437005 /* ViewController.m in Sources */,
 				C68DA3911497B79000437005 /* F3BarGauge.m in Sources */,
+				57B3334F1582997F0074AFA1 /* F3EqualizerGauge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
