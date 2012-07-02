@@ -57,6 +57,8 @@
        withRect:(CGRect) a_rect
        andColor:(UIColor *)a_clr
             lit:(BOOL)a_lit;
+-(void) fallPeakBar;
+-(void) updatePeakBar;
 @end
 
 
@@ -107,6 +109,7 @@
   [m_clrNormal release];
   [m_clrWarning release];
   [m_clrDanger release];
+  [m_clrPeak release]; 
   
   // Call parent
   [super dealloc];
@@ -170,10 +173,51 @@
   
   // Redraw the display?
   if( fRedraw ) {
-    // Do it
-    [self setNeedsDisplay];
+      // Do it
+      [self setNeedsDisplay];
+    
+      if (m_fPeakGravity && m_fHoldPeak && m_iPeakBarIdx > m_iOffIdx) {
+          if (peakTimer != nil) {
+              [peakTimer invalidate];
+              peakTimer = nil;
+          }
+          
+          [self performSelector:@selector(fallPeakBar) withObject:self afterDelay:0.3];
+      }  
+      
   }
 }
+
+- (void)fallPeakBar {
+    if (peakTimer == nil) {
+        peakTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/50.0
+                                                     target:self
+                                                   selector:@selector(updatePeakBar)
+                                                   userInfo:nil
+                                                    repeats:YES];
+    }
+}
+
+- (void)updatePeakBar {
+    if (m_iOffIdx < m_iPeakBarIdx && m_iPeakBarIdx>0 ) {  
+        m_iPeakBarIdx = m_iPeakBarIdx -1;    
+        [self setNeedsDisplay];
+    } else {        
+        if (peakTimer != nil) {
+            m_flPeakValue = m_flValue;
+            [peakTimer invalidate];
+            peakTimer = nil;
+        }
+        
+        if (m_iOffIdx == m_iPeakBarIdx) {
+            m_iPeakBarIdx = m_iPeakBarIdx -1; 
+            [self setNeedsDisplay];            
+        }       
+    }
+}
+
+
+
 
 
 //------------------------------------------------------------------------
@@ -235,12 +279,14 @@
 @synthesize peakValue = m_flPeakValue;
 @synthesize litEffect = m_fLitEffect;
 @synthesize reverse = m_fReverseDirection;
+@synthesize peakGravity = m_fPeakGravity;
 @synthesize outerBorderColor = m_clrOuterBorder;
 @synthesize innerBorderColor = m_clrInnerBorder;
 @synthesize backgroundColor = m_clrBackground;
 @synthesize normalBarColor = m_clrNormal;
 @synthesize warningBarColor = m_clrWarning;
 @synthesize dangerBarColor = m_clrDanger;
+@synthesize peakBarColor = m_clrPeak;
 
 
 
@@ -268,6 +314,7 @@
   m_iPeakBarIdx       = -1;
   m_fLitEffect        = YES;
   m_fReverseDirection = NO;
+  m_fPeakGravity      = NO;
   [self setWarnThreshold:0.60f];
   [self setDangerThreshold:0.80f];
   
@@ -278,6 +325,8 @@
   m_clrNormal           = [[UIColor greenColor] retain];
   m_clrWarning          = [[UIColor yellowColor] retain];
   m_clrDanger           = [[UIColor redColor] retain];
+  m_clrPeak             = [[UIColor greenColor] retain];  
+    
   
   // Misc.
   self.clearsContextBeforeDrawing = NO;
@@ -344,12 +393,15 @@
 
     // Determine color of bar
     UIColor   *clrFill = m_clrNormal;
-    if( m_iDangerBarIdx >= 0 && iX >= m_iDangerBarIdx ) {
+    if( m_iDangerBarIdx >= 0 && iX >= m_iDangerBarIdx && ![m_clrDanger isEqual:m_clrNormal] ) {
       clrFill = m_clrDanger;
     }
-    else if( m_iWarningBarIdx >= 0 && iX >= m_iWarningBarIdx ) {
+    else if( m_iWarningBarIdx >= 0 && iX >= m_iWarningBarIdx && ![m_clrWarning isEqual:m_clrNormal] ) {
       clrFill = m_clrWarning;
     }
+    else if (iX == m_iPeakBarIdx) {
+        clrFill = m_clrPeak;
+    }  
     
     // Determine if bar should be lit
     BOOL fLit = ((iX >= m_iOnIdx && iX < m_iOffIdx) || iX == m_iPeakBarIdx);

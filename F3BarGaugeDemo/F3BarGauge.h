@@ -42,7 +42,8 @@
   @private
     BOOL        m_fHoldPeak,            // YES = hold peak value enabled
                 m_fLitEffect,           // YES = draw segments with gradient "lit-up" effect
-                m_fReverseDirection;    // YES = top-to-bottom or right-to-left 
+                m_fReverseDirection,    // YES = top-to-bottom or right-to-left 
+                m_fpeakGravity;         // YES = peakbar falls to current index
     float       m_flValue,              // Current value being displayed
                 m_flPeakValue,          // Peak value seen since reset
                 m_flMaxLimit,           // Maximum displayable value
@@ -55,7 +56,9 @@
                 *m_clrBackground,       // Background color of gauge
                 *m_clrNormal,           // Normal segment color
                 *m_clrWarning,          // Warning segment color
-                *m_clrDanger;           // Danger segment color
+                *m_clrDanger,           // Danger segment color
+                *m_clrPeak;             // Peak segment color
+    NSTimer *peakTimer; // Store the timer that fires after a certain time
 }
 
 @property (readwrite, nonatomic)  float     value;
@@ -68,12 +71,14 @@
 @property (readwrite, nonatomic)  BOOL      holdPeak;
 @property (readwrite, nonatomic)  BOOL      litEffect;
 @property (readwrite, nonatomic)  BOOL      reverse;
+@property (readwrite, nonatomic)  BOOL      peakGravity;
 @property (readwrite, retain)     UIColor   *outerBorderColor;
 @property (readwrite, retain)     UIColor   *innerBorderColor;
 @property (readwrite, retain)     UIColor   *backgroundColor;
 @property (readwrite, retain)     UIColor   *normalBarColor;
 @property (readwrite, retain)     UIColor   *warningBarColor;
 @property (readwrite, retain)     UIColor   *dangerBarColor;
+@property (readwrite, retain)     UIColor   *peakBarColor;
 
 -(void) resetPeak;
 

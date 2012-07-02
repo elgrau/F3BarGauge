@@ -49,6 +49,7 @@
   
   peakHoldBar.numBars = 10;
   peakHoldBar.holdPeak = YES;
+  peakHoldBar.peakGravity = YES;  
 
   lcdBar.numBars = 20;
   lcdBar.litEffect = NO;
@@ -56,9 +57,14 @@
   lcdBar.normalBarColor = clrBar;
   lcdBar.warningBarColor = clrBar;
   lcdBar.dangerBarColor = clrBar;
+  lcdBar.peakBarColor = [UIColor whiteColor];  
+    lcdBar.holdPeak = YES;
+  lcdBar.peakGravity = YES;  
+    
+    
   lcdBar.backgroundColor = [UIColor clearColor];
   lcdBar.outerBorderColor = [UIColor clearColor];
-  lcdBar.innerBorderColor = [UIColor clearColor];
+  lcdBar.innerBorderColor = [UIColor clearColor];    
 
     equalizer.numBars = 4;
     equalizer.numGauges = 4;
